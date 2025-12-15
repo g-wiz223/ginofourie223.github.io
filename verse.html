@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verse of the Day</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .verse {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .ref {
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        footer {
+            font-size: 0.85rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Verse of the Day</h1>
+    <div id="verse" class="verse">Loading...</div>
+    <div id="reference" class="ref"></div>
+    <footer>Have a blessed day 🤍</footer>
+</div>
+
+<script>
+fetch("https://beta.ourmanna.com/api/v1/get/?format=json")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("verse").innerText = data.verse.details.text;
+        document.getElementById("reference").innerText = data.verse.details.reference;
+    })
+    .catch(() => {
+        document.getElementById("verse").innerText = "Unable to load verse today.";
+    });
+</script>
+
+</body>
+</html>
